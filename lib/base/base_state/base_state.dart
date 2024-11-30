@@ -27,3 +27,5 @@ class LoadingState<T> extends BaseState<T> {
     this.loadingMessage,
   });
 }
+
+class InitialState<T> extends BaseState<T> {}

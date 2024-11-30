@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:news_app/core/app_styles.dart';
 import 'package:news_app/data/api/api_manager/api_manager.dart';
 import 'package:news_app/presentation/common/loading_widget.dart';
 import 'package:news_app/presentation/screens/search/viewModel/search_view_model.dart';
@@ -23,7 +24,8 @@ class SearchView extends StatefulWidget {
 
 class _SearchViewState extends State<SearchView> {
   late TextEditingController controller;
-  bool search = false;
+
+  // bool search = false;
 
   @override
   void initState() {
@@ -72,49 +74,51 @@ class _SearchViewState extends State<SearchView> {
                 ),
                 child: SearchBarr(
                   controller: controller,
-                  onPress: () {
-                    search = true;
-                    viewModel.search(controller.text);
-                    setState(() {});
+                  onChange: (val) {
+                    if (val.trim().isNotEmpty) viewModel.search(val);
                   },
                 ),
               ),
               SizedBox(
                 height: 10.h,
               ),
-              if (search && controller.text.isNotEmpty)
-                ChangeNotifierProvider.value(
-                  value: viewModel,
-                  child: Consumer<SearchViewModel>(
-                    builder: (context, viewModel, child) {
-                      var state = viewModel.state;
-                      switch (state) {
-                        case SuccessState():
-                          return Expanded(
-                            child: ListView.builder(
-                              itemBuilder: (context, index) => ArticleWidget(
-                                article: state.data.isNotEmpty
-                                    ? state.data[index]
-                                    : Article(),
-                              ),
+              ChangeNotifierProvider.value(
+                value: viewModel,
+                child: Consumer<SearchViewModel>(
+                  builder: (context, viewModel, child) {
+                    var state = viewModel.state;
+                    switch (state) {
+                      case SuccessState():
+                        return Expanded(
+                          child: ListView.builder(
+                            itemBuilder: (context, index) => ArticleWidget(
+                              article: state.data.isNotEmpty
+                                  ? state.data[index]
+                                  : Article(),
                             ),
-                          );
+                          ),
+                        );
 
-                        case ErrorState():
-                          return MyErrorWidget(
-                            error: state.error,
-                            serverError: state.serverError,
-                            retryText: 'Retry',
-                            onCLick: () {
-                              viewModel.search(controller.text);
-                            },
-                          );
-                        case LoadingState():
-                          return const LoadingWidget();
-                      }
-                    },
-                  ),
+                      case ErrorState():
+                        return MyErrorWidget(
+                          error: state.error,
+                          serverError: state.serverError,
+                          retryText: 'Retry',
+                          onCLick: () {
+                            viewModel.search(controller.text);
+                          },
+                        );
+                      case LoadingState():
+                        return const LoadingWidget();
+                      case InitialState():
+                        return Text(
+                          'Search Here...',
+                          style: AppStyles.settingsTabLabel,
+                        );
+                    }
+                  },
                 ),
+              ),
             ],
           ),
         ),

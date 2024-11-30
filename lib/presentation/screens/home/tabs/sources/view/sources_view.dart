@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:news_app/data/models/articles_resposne/Source.dart';
 import 'package:news_app/data/models/category_model.dart';
 import 'package:news_app/presentation/common/loading_widget.dart';
 import 'package:provider/provider.dart';
@@ -48,6 +49,8 @@ class _SourcesViewState extends State<SourcesView> {
               );
             case LoadingState():
               return const LoadingWidget();
+            case InitialState():
+              return Container();
           }
         },
       ),

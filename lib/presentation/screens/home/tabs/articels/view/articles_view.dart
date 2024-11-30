@@ -69,12 +69,11 @@ class _ArticlesViewState extends State<ArticlesView> {
               );
             case LoadingState():
               return const LoadingWidget();
+            case InitialState():
+              return Container();
           }
         },
       ),
     );
   }
-
-
-
 }

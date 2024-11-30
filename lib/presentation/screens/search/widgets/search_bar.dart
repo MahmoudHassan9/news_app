@@ -7,14 +7,16 @@ import '../../../../core/app_colors.dart';
 import '../../../../core/app_styles.dart';
 
 class SearchBarr extends StatelessWidget {
-  const SearchBarr({super.key, required this.controller, this.onPress});
+  const SearchBarr(
+      {super.key, required this.controller, this.onChange});
 
   final TextEditingController controller;
-  final void Function()? onPress;
+  final void Function(String)? onChange;
 
   @override
   Widget build(BuildContext context) {
     return TextField(
+      onChanged: onChange,
       style: const TextStyle(
         color: AppColors.green,
       ),
@@ -30,16 +32,13 @@ class SearchBarr extends StatelessWidget {
             color: AppColors.green,
           ),
         ),
-        suffixIcon: IconButton(
-          onPressed: onPress,
-          icon: Padding(
-            padding: REdgeInsets.only(right: 10),
-            child: const ImageIcon(
-              AssetImage(
-                AppAssets.searchIcon,
-              ),
-              color: AppColors.green,
+        suffixIcon: Padding(
+          padding: REdgeInsets.all(10.0),
+          child: const ImageIcon(
+            AssetImage(
+              AppAssets.searchIcon,
             ),
+            color: AppColors.green,
           ),
         ),
         hintText: 'Search Article',

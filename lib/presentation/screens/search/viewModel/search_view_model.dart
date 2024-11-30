@@ -7,7 +7,7 @@ import 'package:news_app/data/models/articles_resposne/article.dart';
 import 'package:news_app/result.dart';
 
 class SearchViewModel extends BaseViewModel<List<Article>> {
-  SearchViewModel() : super(state: LoadingState());
+  SearchViewModel() : super(state: InitialState());
 
   void search(String sourceId) async {
     emit(LoadingState());
