@@ -2,16 +2,17 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:news_app/domain/entity/articles_entity.dart';
 import 'package:news_app/presentation/common/loading_widget.dart';
 import 'package:news_app/routing/app_routes.dart';
 
 import '../../../../../../core/app_styles.dart';
-import '../../../../../../data/models/articles_resposne/article.dart';
+import '../../../../../../data/api/models/articles_resposne/article.dart';
 
 class ArticleWidget extends StatelessWidget {
   const ArticleWidget({super.key, required this.article});
 
-  final Article article;
+  final ArticleEntity article;
 
   @override
   Widget build(BuildContext context) {
@@ -43,7 +44,7 @@ class ArticleWidget extends StatelessWidget {
               height: 8.h,
             ),
             Text(
-              article.source?.name ?? '',
+              article.sourceEntity?.name ?? '',
               style: AppStyles.articleSourceTitle,
             ),
             SizedBox(

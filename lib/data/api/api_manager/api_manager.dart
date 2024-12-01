@@ -1,19 +1,21 @@
 import 'dart:convert';
 
 import 'package:http/http.dart' as http;
-import 'package:news_app/data/models/articles_resposne/Source.dart';
-import 'package:news_app/data/models/articles_resposne/article.dart';
-import 'package:news_app/data/models/articles_resposne/articles_response.dart';
-import 'package:news_app/data/models/soureces_response/sources_response.dart';
+import 'package:news_app/data/api/models/soureces_response/source.dart';
+
 import 'package:news_app/result.dart';
 
-abstract class ApiManager {
+import '../models/articles_resposne/article.dart';
+import '../models/articles_resposne/articles_response.dart';
+import '../models/soureces_response/sources_response.dart';
+
+class ApiManager {
   static const String baseURL = 'newsapi.org';
   static const String apiKey = '3d3304580a8749ceab7f836d2a3f8db0';
   static const String sourcesEndPoint = '/v2/top-headlines/sources';
   static const String articlesEndPoint = '/v2/everything';
 
-  static Future<Result<List<Source>>> getSources(String categoryId) async {
+  Future<Result<List<Source>>> getSources(String categoryId) async {
     Uri url = Uri.https(
       baseURL,
       sourcesEndPoint,
@@ -43,7 +45,7 @@ abstract class ApiManager {
     }
   }
 
-  static Future<Result<List<Article>>> getArticles(String sourceId) async {
+  Future<Result<List<Article>>> getArticles(String sourceId) async {
     Uri url = Uri.https(
       baseURL,
       articlesEndPoint,
@@ -71,7 +73,7 @@ abstract class ApiManager {
     }
   }
 
-  static Future<Result<List<Article>>> search(String search) async {
+   Future<Result<List<Article>>> search(String search) async {
     Uri url = Uri.https(
       baseURL,
       articlesEndPoint,

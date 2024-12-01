@@ -1,17 +1,15 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:news_app/domain/entity/sources_entity.dart';
 
 import 'package:news_app/presentation/screens/home/tabs/articels/view/articles_view.dart';
 import 'package:news_app/presentation/screens/home/tabs/sources/widgets/source_widget.dart';
 
-import '../../../../core/app_colors.dart';
-import '../../../../data/models/articles_resposne/Source.dart';
-import '../category_details.dart';
 
 class SourcesTab extends StatefulWidget {
   const SourcesTab({super.key, required this.sources});
 
-  final List<Source> sources;
+  final List<SourceEntity> sources;
 
   @override
   State<SourcesTab> createState() => _SourcesTabState();

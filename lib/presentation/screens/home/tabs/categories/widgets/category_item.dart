@@ -3,7 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:news_app/routing/app_routes.dart';
 
 import '../../../../../../core/app_styles.dart';
-import '../../../../../../data/models/category_model.dart';
+import '../../../../../../data/api/models/category_model.dart';
 
 class CategoryItem extends StatelessWidget {
   const CategoryItem({super.key, required this.model});

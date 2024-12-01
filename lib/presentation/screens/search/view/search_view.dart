@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:news_app/core/app_styles.dart';
 import 'package:news_app/data/api/api_manager/api_manager.dart';
+import 'package:news_app/domain/entity/articles_entity.dart';
 import 'package:news_app/presentation/common/loading_widget.dart';
 import 'package:news_app/presentation/screens/search/viewModel/search_view_model.dart';
 import 'package:news_app/presentation/screens/search/widgets/search_bar.dart';
@@ -11,7 +12,11 @@ import 'package:provider/provider.dart';
 import '../../../../base/base_state/base_state.dart';
 import '../../../../core/app_assets.dart';
 import '../../../../core/app_colors.dart';
-import '../../../../data/models/articles_resposne/article.dart';
+import '../../../../data/api/models/articles_resposne/article.dart';
+import '../../../../data/datesource_impl/search_api_data_source_impl.dart';
+import '../../../../data/repository_impl/search_repo_impl.dart';
+import '../../../../domain/usecases/get_articles_use_case.dart';
+import '../../../../domain/usecases/get_search_use_case.dart';
 import '../../../common/error_widget.dart';
 import '../../home/tabs/articels/widgets/article_widget.dart';
 
@@ -41,7 +46,15 @@ class _SearchViewState extends State<SearchView> {
     controller.dispose();
   }
 
-  SearchViewModel viewModel = SearchViewModel();
+  SearchViewModel viewModel = SearchViewModel(
+    useCase: GetSearchUseCase(
+      repo: SearchRepoImpl(
+        searchDataSource: SearchApiDataSourceImpl(
+          apiManager: ApiManager(),
+        ),
+      ),
+    ),
+  );
 
   @override
   Widget build(BuildContext context) {
@@ -94,7 +107,7 @@ class _SearchViewState extends State<SearchView> {
                             itemBuilder: (context, index) => ArticleWidget(
                               article: state.data.isNotEmpty
                                   ? state.data[index]
-                                  : Article(),
+                                  : const ArticleEntity(),
                             ),
                           ),
                         );

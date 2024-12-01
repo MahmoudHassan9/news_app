@@ -1,23 +1,24 @@
-import 'package:flutter/widgets.dart';
 import 'package:news_app/base/base_state/base_state.dart';
 import 'package:news_app/base/base_viewModel/base_view_model.dart';
-import 'package:news_app/data/api/api_manager/api_manager.dart';
-import 'package:news_app/data/models/articles_resposne/Source.dart';
-import 'package:news_app/data/models/articles_resposne/article.dart';
-import 'package:news_app/result.dart';
+import 'package:news_app/domain/entity/articles_entity.dart';
+import 'package:news_app/domain/usecases/get_search_use_case.dart';
 
-class SearchViewModel extends BaseViewModel<List<Article>> {
-  SearchViewModel() : super(state: InitialState());
+import '../../../../result.dart';
+
+class SearchViewModel extends BaseViewModel<List<ArticleEntity>> {
+  SearchViewModel({required this.useCase}) : super(state: InitialState());
+
+  GetSearchUseCase useCase;
 
   void search(String sourceId) async {
     emit(LoadingState());
-    var result = await ApiManager.search(sourceId);
+    var result = await useCase.execute(sourceId);
     switch (result) {
-      case Success<List<Article>>():
+      case Success<List<ArticleEntity>>():
         emit(SuccessState(data: result.data));
-      case ServerError<List<Article>>():
+      case ServerError<List<ArticleEntity>>():
         emit(ErrorState(serverError: result));
-      case Error<List<Article>>():
+      case Error<List<ArticleEntity>>():
         emit(ErrorState(error: result));
     }
   }

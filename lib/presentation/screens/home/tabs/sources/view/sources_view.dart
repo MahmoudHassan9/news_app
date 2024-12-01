@@ -1,10 +1,14 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:news_app/data/models/articles_resposne/Source.dart';
-import 'package:news_app/data/models/category_model.dart';
+import 'package:news_app/data/api/api_manager/api_manager.dart';
+import 'package:news_app/data/datesource_impl/sources_api_data_source_impl.dart';
+import 'package:news_app/data/repository_impl/sources_repo_impl.dart';
+import 'package:news_app/domain/usecases/get_sources_use_case.dart';
+
 import 'package:news_app/presentation/common/loading_widget.dart';
 import 'package:provider/provider.dart';
 import '../../../../../../base/base_state/base_state.dart';
+import '../../../../../../data/api/models/category_model.dart';
 import '../../../../../common/error_widget.dart';
 import '../../../../category_details/widgets/sources_tab.dart';
 import '../viewModel/source_view_model.dart';
@@ -19,7 +23,15 @@ class SourcesView extends StatefulWidget {
 }
 
 class _SourcesViewState extends State<SourcesView> {
-  SourceViewModel viewModel = SourceViewModel();
+  SourceViewModel viewModel = SourceViewModel(
+    useCase: GetSourcesUseCase(
+      repo: SourcesRepoImpl(
+        sourcesDataSource: SourcesApiDataSourceImpl(
+          apiManager: ApiManager(),
+        ),
+      ),
+    ),
+  );
 
   @override
   void initState() {

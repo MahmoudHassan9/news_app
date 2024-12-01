@@ -1,28 +1,39 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:news_app/base/base_state/base_state.dart';
+import 'package:news_app/domain/entity/articles_entity.dart';
+import 'package:news_app/domain/entity/sources_entity.dart';
+import 'package:news_app/domain/usecases/get_articles_use_case.dart';
 import 'package:news_app/presentation/common/error_widget.dart';
 import 'package:news_app/presentation/common/loading_widget.dart';
 import 'package:news_app/presentation/screens/home/tabs/articels/viewModel/article_view_model.dart';
 import 'package:provider/provider.dart';
-
-import '../../../../../../core/app_colors.dart';
 import '../../../../../../data/api/api_manager/api_manager.dart';
-import '../../../../../../data/models/articles_resposne/Source.dart';
-import '../../../../../../data/models/articles_resposne/article.dart';
+import '../../../../../../data/api/models/articles_resposne/article.dart';
+
+import '../../../../../../data/datesource_impl/articles_api_data_source_impl.dart';
+import '../../../../../../data/repository_impl/articles_repo_impl.dart';
 import '../widgets/article_widget.dart';
 
 class ArticlesView extends StatefulWidget {
   const ArticlesView({super.key, required this.source});
 
-  final Source source;
+  final SourceEntity source;
 
   @override
   State<ArticlesView> createState() => _ArticlesViewState();
 }
 
 class _ArticlesViewState extends State<ArticlesView> {
-  ArticleViewModel viewModel = ArticleViewModel();
+  ArticleViewModel viewModel = ArticleViewModel(
+    useCase: GetArticlesUseCase(
+      repo: ArticlesRepoImpl(
+        articlesDataSource: ArticlesApiDataSourceImpl(
+          apiManager: ApiManager(),
+        ),
+      ),
+    ),
+  );
 
   @override
   void initState() {
@@ -52,8 +63,9 @@ class _ArticlesViewState extends State<ArticlesView> {
               return Expanded(
                 child: ListView.builder(
                   itemBuilder: (context, index) => ArticleWidget(
-                    article:
-                        state.data.isNotEmpty ? state.data[index] : Article(),
+                    article: state.data.isNotEmpty
+                        ? state.data[index]
+                        : const ArticleEntity(),
                   ),
                 ),
               );

@@ -1,9 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:news_app/domain/entity/articles_entity.dart';
 import 'package:news_app/presentation/screens/article_details/article_details.dart';
 import 'package:news_app/routing/app_routes.dart';
 
-import '../data/models/articles_resposne/article.dart';
+import '../data/api/models/articles_resposne/article.dart';
 import '../presentation/screens/home/home.dart';
 import '../presentation/screens/search/view/search_view.dart';
 
@@ -20,7 +21,7 @@ abstract class AppRouter {
         );
       case AppRoutes.articleDetails:
         return MaterialPageRoute(builder: (_) {
-          final article = settings.arguments as Article;
+          final article = settings.arguments as ArticleEntity;
           return ArticleDetails(
             article: article,
           );

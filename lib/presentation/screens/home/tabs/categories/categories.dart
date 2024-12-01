@@ -3,9 +3,10 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:news_app/core/app_styles.dart';
-import 'package:news_app/data/models/category_model.dart';
 import 'package:news_app/lang/locale_keys.g.dart';
 import 'package:news_app/presentation/screens/home/tabs/categories/widgets/category_item.dart';
+
+import '../../../../../data/api/models/category_model.dart';
 
 class Categories extends StatefulWidget {
   const Categories({super.key, required this.onClick});

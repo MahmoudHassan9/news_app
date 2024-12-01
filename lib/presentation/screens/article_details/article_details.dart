@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:news_app/data/models/articles_resposne/article.dart';
+import 'package:news_app/domain/entity/articles_entity.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '../../../core/app_assets.dart';
@@ -11,7 +11,7 @@ import '../../../core/app_styles.dart';
 class ArticleDetails extends StatelessWidget {
   const ArticleDetails({super.key, required this.article});
 
-  final Article article;
+  final ArticleEntity article;
 
   @override
   Widget build(BuildContext context) {
@@ -27,7 +27,7 @@ class ArticleDetails extends StatelessWidget {
       child: Scaffold(
         appBar: AppBar(
           title: Text(
-            article.source?.name ?? '',
+            article.sourceEntity?.name ?? '',
           ),
         ),
         body: Column(
@@ -50,7 +50,7 @@ class ArticleDetails extends StatelessWidget {
                     height: 8.h,
                   ),
                   Text(
-                    article.source?.name ?? '',
+                    article.sourceEntity?.name ?? '',
                     style: AppStyles.articleSourceTitle,
                   ),
                   SizedBox(

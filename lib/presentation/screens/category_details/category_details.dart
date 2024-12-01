@@ -1,8 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-import 'package:news_app/data/models/category_model.dart';
 
+
+import '../../../data/api/models/category_model.dart';
 import '../home/tabs/sources/view/sources_view.dart';
 
 class CategoryDetails extends StatelessWidget {

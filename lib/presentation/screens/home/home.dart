@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:news_app/core/app_colors.dart';
 import 'package:news_app/core/app_styles.dart';
-import 'package:news_app/data/models/category_model.dart';
 import 'package:news_app/lang/locale_keys.g.dart';
 import 'package:news_app/presentation/screens/category_details/category_details.dart';
 import 'package:news_app/presentation/screens/home/tabs/categories/categories.dart';
@@ -12,6 +11,7 @@ import 'package:news_app/presentation/screens/home/widgets/home_drawer.dart';
 import 'package:news_app/routing/app_routes.dart';
 import 'package:easy_localization/easy_localization.dart';
 import '../../../core/app_assets.dart';
+import '../../../data/api/models/category_model.dart';
 
 class Home extends StatefulWidget {
   const Home({super.key});

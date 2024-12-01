@@ -1,5 +1,6 @@
 
-import '../articles_resposne/Source.dart';
+
+import 'package:news_app/data/api/models/soureces_response/source.dart';
 
 class SourcesResponse {
   SourcesResponse({
